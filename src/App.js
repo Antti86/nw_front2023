@@ -3,6 +3,7 @@ import './App.css';
 import Laskuri from './Laskuri';
 import React, {useState} from "react";
 import Posts from './Posts';
+import CustomerList from './CustomerList';
 
 
 
@@ -17,13 +18,13 @@ function App() {
 
       <h1>NorthWind Testi</h1>
       
+      <CustomerList></CustomerList>
 
-
-      {!näytäLaskuri && <button onClick={() => setnäytäLaskuri(true)}>Näytä laskuri!</button>}
+      {/* {!näytäLaskuri && <button onClick={() => setnäytäLaskuri(true)}>Näytä laskuri!</button>}
       {näytäLaskuri && <button onClick={() => setnäytäLaskuri(false)}>Piilota laskuri!</button>}
       {näytäLaskuri && <Laskuri></Laskuri>}
 
-      <Posts state={näytäLaskuri} tervehdys="sdsdf" info="dsfsdf"></Posts>
+      <Posts state={näytäLaskuri} tervehdys="sdsdf" info="dsfsdf"></Posts> */}
 
 
     </div>
