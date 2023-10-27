@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import CustomerService from './Services/customer'
+import CustomerService from '../Services/customer'
 
-function CustomerForm({setAdding, reload, setreload}) {
+const CustomerForm = ({setAdding, reload, setreload, setMessage, setIsPositive, setShowMessage}) => {
+
   const [formState, setFormState] = useState({
     CustomerId: '',
     CompanyName: '',
@@ -41,7 +42,22 @@ function CustomerForm({setAdding, reload, setreload}) {
   };
 
   CustomerService.addNew(newCustomer)
-  .then(data => alert(data))
+  .then(response => {
+    setMessage(response)
+    setIsPositive(true)
+    setShowMessage(true)
+    setTimeout(() => {
+      setShowMessage(false)
+  }, 4000);
+  })
+  .catch(error => {
+    setMessage(error.message)
+    setIsPositive(true)
+    setShowMessage(true)
+        setTimeout(() => {
+      setShowMessage(false)
+  }, 4000);
+  })
   .then(() => setreload(!reload))
   setAdding(false)
 

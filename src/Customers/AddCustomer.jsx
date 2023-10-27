@@ -1,8 +1,10 @@
 import React, {useState} from "react"
-import './App.css'
-import CustomerService from './Services/customer'
+import '../App.css'
+import CustomerService from '../Services/customer'
 
-const CustomerAdd = ({setAdding, reload, setreload}) => {
+// Propsina välitetään setAdding funktio joka piilottaa formin jos niin halutaan
+const CustomerAdd = ({setAdding, setMessage, setIsPositive, 
+  setShowMessage}) => {
 
     // State määritys
   const [CustomerId, setCustomerId] = useState('');
@@ -35,13 +37,30 @@ const CustomerAdd = ({setAdding, reload, setreload}) => {
   }
   
   CustomerService.addNew(newCustomer)
-  .then(data => alert(data))
-  setreload(!reload)
-  setAdding(false)
-}
+  .then(data => {
+        setMessage(data)
+        setIsPositive(true)
+        setShowMessage(true)
+        setTimeout(() => {
+          setShowMessage(false)
+          window.location.reload()
+        } , 4000)
+    }
+    )
+    .catch (error => {
+        setMessage(error.message)
+        setIsPositive(false)
+        setShowMessage(true)
+        setTimeout(() => {
+          setShowMessage(false)
+          window.location.reload()
+        } , 6000)
+    })
+    
+  }
 
  return(
-     <div>
+     <div className="add-div">
         <h4>Adding new Customer</h4>
         <form onSubmit={submitForm}>
             <input type="text" value={CustomerId} onChange={({target}) => setCustomerId(target.value)} placeholder="ID" />
@@ -56,6 +75,7 @@ const CustomerAdd = ({setAdding, reload, setreload}) => {
             <input type="text" value={Phone} onChange={({target}) => setPhone(target.value)} placeholder="Phone" />
             <input type="text" value={Fax} onChange={({target}) => setFax(target.value)} placeholder="Fax" />
             <input type="submit" value="Save" />
+            <input type="submit" onClick={() => setAdding(false)} value="back" />
         </form>      
     </div>
   )

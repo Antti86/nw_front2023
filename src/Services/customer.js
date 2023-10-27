@@ -4,14 +4,6 @@ import axios from 'axios';
 const GetCustomers = (search) => {
 
     let Url = "";
-    // if (country === "" || country === null)
-    // {
-    //     Url = `https://localhost:7148/api/Customers`;
-    // }
-    // else
-    // {
-    //     Url = `https://localhost:7148/api/Customers/companyname/${country}`
-    // }
 
     if (search === "" || search === null)
     {
@@ -34,4 +26,14 @@ const addNew = (object) => {
     return request.then(response => response.data)
 }
 
-export default {GetCustomers, addNew}
+const RemoveCustomer = (id) => {
+    const request = axios.delete(`https://localhost:7148/api/Customers/${id}?forceDelete=false`)
+    return request.then(response => response.data)
+}
+
+const Update = (customer) => {
+    const request = axios.put(`https://localhost:7148/api/Customers/${customer.customerId}`, customer)
+    return request.then(response => response.data)
+}
+
+export default {GetCustomers, addNew, RemoveCustomer, Update}

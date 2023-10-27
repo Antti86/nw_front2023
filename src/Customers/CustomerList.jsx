@@ -1,12 +1,13 @@
 
 import React, {useState, useEffect} from "react"
-import CustomerService from './Services/customer'
-import CustomerAdd from "./AddCustomer";
+import CustomerService from '../Services/customer'
+// import CustomerAdd from "./AddCustomer";
 import CustomerForm from "./AddCustomerForm";
-import './App.css'
+import '../App.css'
 import Customer from "./Customer";
 
-const CustomerList = () => 
+
+const CustomerList = ({setMessage, setIsPositive, setShowMessage}) => 
 {
 
     const [customers, setcustomers] = useState("");
@@ -15,6 +16,7 @@ const CustomerList = () =>
     const [search, setsearch] = useState([])
 
     const [adding, setAdding] = useState(false)
+
     const [reload, setreload] = useState(false)
 
     useEffect(() => 
@@ -31,7 +33,12 @@ const CustomerList = () =>
 
 
             {!adding && <button onClick={() => setAdding(true)}>Add new customer</button>}
-            {adding && <CustomerForm setAdding={setAdding} reload={reload} setreload={setreload} />}
+            {adding && <CustomerForm setAdding={setAdding} reload={reload} setreload={setreload}
+             setMessage={setMessage} setIsPositive={setIsPositive} setShowMessage={setShowMessage}/>}
+
+            {/* {adding && <CustomerAdd setAdding={setAdding}
+            setMessage={setMessage} setIsPositive={setIsPositive} 
+            setShowMessage={setShowMessage} />} */}
 
 
             <form id="customerForm" onSubmit={(e) => {e.preventDefault(); setsearch(document.getElementById("searchinput").value)}}>
@@ -43,7 +50,9 @@ const CustomerList = () =>
 
 
             {showcustomers && customers && customers.map(c =>
-                <Customer key={c.customerId} customer={c}></Customer>
+                <Customer key={c.customerId} customer={c} reload={reload} setreload={setreload} 
+                setMessage={setMessage} setIsPositive={setIsPositive} setShowMessage={setShowMessage}
+                ></Customer>
                 )}
 
         </div>
