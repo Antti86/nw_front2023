@@ -21,6 +21,8 @@ const CustomerList = ({setMessage, setIsPositive, setShowMessage}) =>
 
     useEffect(() => 
     {
+        let token = localStorage.getItem("token")
+        CustomerService.setToken(token)
         CustomerService.GetCustomers(search)
         .then(data => setcustomers(data));
 
