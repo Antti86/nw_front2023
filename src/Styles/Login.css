@@ -1,0 +1,25 @@
+
+.Login {
+    display: flex;
+    justify-content: center;
+    background-color:midnightblue;
+    margin-top: 2%;
+  }
+
+.Login form {
+    width: 300px;
+    margin: 50px;
+    color: white;
+}
+
+.Login button {
+    width: 100px;
+    margin: 20px;
+}
+
+.LoginError {
+    display: flex;
+    justify-content:center;
+
+}
+

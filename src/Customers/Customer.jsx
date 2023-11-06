@@ -2,7 +2,7 @@
 import React, {useState} from "react"
 import CustomerService from '../Services/customer'
 
-import '../App.css'
+import '../Styles/App.css';
 import EditCustomer from "./EditCustomer";
 
 const Customer = ({customer, reload, setreload, setMessage, setIsPositive, setShowMessage}) => 

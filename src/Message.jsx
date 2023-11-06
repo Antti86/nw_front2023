@@ -1,4 +1,4 @@
-import './App.css'
+import './Styles/App.css';
 
 const Message = ({message, isPositive}) => {
 

@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from "react"
 import UserService from '../Services/user'
 // import CustomerAdd from "./AddCustomer";
-import '../App.css'
+import '../Styles/App.css';
 import UserAdd from "./UserAdd";
 
 
@@ -11,7 +11,7 @@ const UserList = ({setMessage, setIsPositive, setShowMessage}) =>
 {
 
     const [users, setusers] = useState("");
-    const [showusers, setshowusers] = useState(true);
+    // const [showusers, setshowusers] = useState(true);
 
 
     const [adding, setAdding] = useState(false)

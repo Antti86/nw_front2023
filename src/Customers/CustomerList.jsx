@@ -3,7 +3,7 @@ import React, {useState, useEffect} from "react"
 import CustomerService from '../Services/customer'
 // import CustomerAdd from "./AddCustomer";
 import CustomerForm from "./AddCustomerForm";
-import '../App.css'
+import '../Styles/App.css';
 import Customer from "./Customer";
 
 

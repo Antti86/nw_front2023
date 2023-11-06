@@ -1,20 +1,17 @@
 
-import './App.css';
+import './Styles/App.css';
 import React, {useState, useEffect} from "react";
 import CustomerList from './Customers/CustomerList';
 import Message from './Message'
-import Posts from './Posts';
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import UserList from './Users/UserList';
 import LoginForm from './Users/LoginFrom';
 
 
 function App() {
-
-  // const [näytäLaskuri, setnäytäLaskuri] = useState(false);
 
     // Statet messagen näyttämistä varten
   const [showMessage, setShowMessage] = useState(false)
@@ -31,20 +28,26 @@ function App() {
     }
   }, [])
 
+  const Logout = () => {
+    localStorage.clear()
+    setLoggedIn("")
+  }
+
   return (
     <div className="App">
-      <h1>NorthWind Testi</h1>
+      <h1>NorthWind Traders</h1>
 
-      {loggedIn == "" && <LoginForm setIsPositive={setIsPositive} setMessage={setMessage} setLoggedIn={setLoggedIn}
-                          setShowMessage={setShowMessage} />}
+      {loggedIn === "" && <LoginForm setLoggedIn={setLoggedIn} />}
 
-      {loggedIn != "" &&
+      {loggedIn !== "" &&
       <Router>
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" data-bs-theme="dark">
           <Nav className="mr-auto">
-            <Nav.Link href="/Customers">Customers</Nav.Link>
-            <Nav.Link href="/Users">Users</Nav.Link>
-            <Nav.Link href="/Posts">Posts</Nav.Link>
+            <Nav.Link href="/Customers">Asiakkaat</Nav.Link>
+            <Nav.Link href="/Users">Käyttäjät</Nav.Link>
+          <Nav>
+            <Nav.Link onClick={() => Logout()}>Kirjaudu ulos ({localStorage.getItem("username")})</Nav.Link>
+          </Nav>
           </Nav>
         </Navbar>
 
@@ -55,7 +58,6 @@ function App() {
         <Routes> 
           <Route path="/Customers" element={<CustomerList setShowMessage={setShowMessage} setMessage={setMessage} setIsPositive={setIsPositive} />} />
           <Route path="/Users" element={<UserList setShowMessage={setShowMessage} setMessage={setMessage} setIsPositive={setIsPositive} />} />
-          <Route path='/Posts' element={<Posts info="Postaukset" tervehdys="Moi!" state={true}></Posts>}></Route>
         </Routes>
       </Router>
       }
