@@ -6,9 +6,10 @@ import Message from './Message'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import UserList from './Users/UserList';
 import LoginForm from './Users/LoginFrom';
+
 
 
 function App() {
@@ -33,6 +34,8 @@ function App() {
     setLoggedIn("")
   }
 
+
+
   return (
     <div className="App">
       <h1>NorthWind Traders</h1>
@@ -41,17 +44,17 @@ function App() {
 
       {loggedIn !== "" &&
       <Router>
-        <Navbar bg="dark" data-bs-theme="dark">
-          <Nav className="mr-auto">
-            <Nav.Link href="/Customers">Asiakkaat</Nav.Link>
-            <Nav.Link href="/Users">Käyttäjät</Nav.Link>
-          <Nav>
-            <Nav.Link onClick={() => Logout()}>Kirjaudu ulos ({localStorage.getItem("username")})</Nav.Link>
+        <Navbar className='NavBar' bg="dark" variant="dark">
+          <Nav className='me-auto'>
+            <Nav.Link as={Link} to="/Customers">Asiakkaat</Nav.Link>
+            <Nav.Link as={Link} to="/Products">Tuotteet</Nav.Link>
+            <Nav.Link as={Link} to="/Employees">Työntekijät</Nav.Link>
+            <Nav.Link as={Link} to="/Users">Käyttäjät</Nav.Link>
           </Nav>
+          <Nav>
+            <Nav.Link onClick={() => Logout()} >Kirjaudu ulos ({localStorage.getItem("username")})</Nav.Link>
           </Nav>
         </Navbar>
-
-
 
         {showMessage && <Message message={message} isPositive={isPositive} />}
 

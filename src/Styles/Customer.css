@@ -1,0 +1,67 @@
+
+.Customers {
+    text-align: center;
+}
+
+.Customers h2 {
+    text-align: start;
+    margin: 20px;
+}
+
+.Customers h3 {
+    text-align: center;
+    margin: 20px;
+}
+
+.Actions {
+    display: flex;
+    text-align: start;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.Actions form {
+    margin-right: 50px;
+}
+
+.List {
+    width: 100%;
+}
+
+.Item {
+    margin: 20px;
+}
+
+.Page {
+    padding-left: 20px;
+}
+
+.CustomersForm {
+    margin: 20px;
+
+}
+
+.CustomersForm label {
+    width: 150px;
+    justify-content: start;
+    margin: 5px;
+
+}
+
+.CustomersForm input {
+    width: 300px;
+    justify-content: start;
+    margin: 5px;
+
+}
+
+.CustomersForm Button {
+    width: 10%;
+    justify-content: start;
+    margin: 5px;
+
+}
+
+.CustomersEdit {
+    margin: 5 px;
+}

@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import CustomerService from '../Services/customer'
+import Button from 'react-bootstrap/Button';
+import '../Styles/Customer.css';
 
 const CustomerForm = ({setAdding, reload, setreload, setMessage, setIsPositive, setShowMessage}) => {
 
   const [formState, setFormState] = useState({
-    CustomerId: '',
-    CompanyName: '',
-    ContactName: '',
-    ContactTitle: '',
-    Address: '',
-    City: '',
-    Country: '',
-    Region: '',
-    PostalCode: '',
-    Phone: '',
-    Fax: '',
+    Asiakasnumero: '',
+    YrityksenNimi: '',
+    Yhteyshenkilö: '',
+    Titteli: '',
+    Osoite: '',
+    Kaupunki: '',
+    Maa: '',
+    Alue: '',
+    Postinumero: '',
+    Puhelin: '',
+    Faksi: '',
   });
 
   const handleInputChange = (e) => {
@@ -27,18 +29,40 @@ const CustomerForm = ({setAdding, reload, setreload, setMessage, setIsPositive, 
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const requiredFields = [
+      'Asiakasnumero',
+      'YrityksenNimi',
+      'Maa',
+      'Osoite',
+      'Kaupunki'
+    ];
+
+    const isAnyFieldEmpty = requiredFields.some((field) => !formState[field]);
+    
+  if (isAnyFieldEmpty) {
+    // Näytetään virheviesti, jos pakollisia kenttiä puuttuu
+    setMessage('Täytä kaikki pakolliset kentät.');
+    setIsPositive(false);
+    setShowMessage(true);
+
+    setTimeout(() => {
+      setShowMessage(false);
+    }, 4000);
+  }
+  else {
     var newCustomer = {
-      customerId: formState.CustomerId.toUpperCase(),
-      companyName: formState.CompanyName,
-      contactName: formState.ContactName,
-      contactTitle: formState.ContactTitle,
-      country: formState.Country,
-      address: formState.Address,
-      city: formState.City,
-      region: formState.Region,
-      postalCode: formState.PostalCode,
-      phone: formState.Phone,
-      fax: formState.Fax
+      customerId: formState.Asiakasnumero.toUpperCase(),
+      companyName: formState.YrityksenNimi,
+      contactName: formState.Yhteyshenkilö,
+      contactTitle: formState.Titteli,
+      country: formState.Maa,
+      address: formState.Osoite,
+      city: formState.Kaupunki,
+      region: formState.Alue,
+      postalCode: formState.Postinumero,
+      phone: formState.Puhelin,
+      fax: formState.Faksi,
   };
 
   CustomerService.addNew(newCustomer)
@@ -60,24 +84,29 @@ const CustomerForm = ({setAdding, reload, setreload, setMessage, setIsPositive, 
   })
   .then(() => setreload(!reload))
   setAdding(false)
+  }
 
 }
   return (
-    <form id="Form" onSubmit={handleSubmit}>
-      {Object.entries(formState).map(([key, value]) => (
-        <div key={key}>
-          <label htmlFor={key}>{key}:</label>
-          <input
-            type="text"
-            id={key}
-            name={key}
-            value={value}
-            onChange={handleInputChange}
-          />
-        </div>
-      ))}
-      <button type="submit">Lähetä</button>
-    </form>
+    <div className='CustomersForm'>
+      <h3>Lisää uusi asiakas</h3>
+      <form className='CustomersForm' id="Form" onSubmit={handleSubmit}>
+        {Object.entries(formState).map(([key, value]) => (
+          <div key={key}>
+            <label htmlFor={key}>{key}:</label>
+            <input
+              type="text"
+              id={key}
+              name={key}
+              value={value}
+              onChange={handleInputChange}
+            />
+          </div>
+        ))}
+        <Button variant='success' type="submit">Tallenna</Button>
+        <Button variant='danger' onClick={() => setAdding(false)}>Peruuta</Button>
+      </form>
+    </div>
   );
 
 }

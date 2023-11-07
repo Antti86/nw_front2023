@@ -1,9 +1,10 @@
 
 import React, {useState} from "react"
 import CustomerService from '../Services/customer'
-
-import '../Styles/App.css';
+import ListGroup from 'react-bootstrap/ListGroup';
+import '../Styles/Customer.css';
 import EditCustomer from "./EditCustomer";
+import Button from 'react-bootstrap/Button';
 
 const Customer = ({customer, reload, setreload, setMessage, setIsPositive, setShowMessage}) => 
 {
@@ -26,10 +27,13 @@ const Customer = ({customer, reload, setreload, setMessage, setIsPositive, setSh
 
     return(
         <div >
-            <h4 onClick={() => setshowdetails(!showdetails)}>{customer.companyName}</h4>
+            <ListGroup.Item className="Item" variant="primary" onClick={() => setshowdetails(!showdetails)}>
+            <strong>{customer.companyName}</strong>
+                <br />
+                {customer.country}
+                </ListGroup.Item>
             {showdetails && 
             <div className="customerDetails">
-                <button className="hidebtn" onClick={() => setshowdetails(!showdetails)}></button>
 
                 {editing && <EditCustomer setEditing={setEditing} reload={reload} setreload={setreload} setMessage={setMessage}
                  setIsPositive={setIsPositive} setShowMessage={setShowMessage} customer={customer}></EditCustomer>}
@@ -41,7 +45,7 @@ const Customer = ({customer, reload, setreload, setMessage, setIsPositive, setSh
                             <th>Address</th>
                             <th>City</th>
                             <th>Country</th>
-                            <button onClick={() => setEditing(true)}>Edit</button>
+                           
                         </tr>
                     </thead>
                     <tbody>
@@ -50,7 +54,9 @@ const Customer = ({customer, reload, setreload, setMessage, setIsPositive, setSh
                             <td>{customer.address}</td>
                             <td>{customer.city}</td>
                             <td>{customer.country}</td>
-                            <button onClick={() => remove(customer)}>Delete</button>
+                            <Button variant="secondary" className="hidebtn" onClick={() => {setshowdetails(!showdetails); setEditing(false)}}>Sulje</Button>
+                            <Button onClick={() => setEditing(true)}>Muokkaa</Button>
+                            <Button variant="danger" onClick={() => remove(customer)}>Poista</Button>
                         </tr>
                     </tbody>
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CustomerService from '../Services/customer'
 import '../Styles/App.css';
+import Button from 'react-bootstrap/Button';
 
 const EditCustomer = ({setEditing, reload, setreload, setMessage, setIsPositive, setShowMessage, customer}) => {
 
@@ -64,21 +65,25 @@ const EditCustomer = ({setEditing, reload, setreload, setMessage, setIsPositive,
 
 }
   return (
-    <form id="Form" onSubmit={handleSubmit}>
-      {Object.entries(formState).map(([key, value]) => (
-        <div key={key}>
-          <label htmlFor={key}>{key}:</label>
-          <input
-            type="text"
-            id={key}
-            name={key}
-            value={value}
-            onChange={handleInputChange}
-          />
-        </div>
-      ))}
-      <button type="submit">Tallenna</button>
-    </form>
+    <div className='CustomersForm'>
+      <form id="Form" onSubmit={handleSubmit}>
+        {Object.entries(formState).map(([key, value]) => (
+          <div key={key}>
+            <label htmlFor={key}>{key}:</label>
+            <input
+              type="text"
+              id={key}
+              name={key}
+              value={value}
+              onChange={handleInputChange}
+            />
+          </div>
+        
+        ))}
+          <Button variant='success' type="submit">Tallenna</Button>
+          <Button variant='danger' onClick={() => setEditing(false)}>Peruuta</Button>
+      </form>
+    </div>
   );
 
 }
