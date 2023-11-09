@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 let token = null
+let BaseUrl = "https://localhost:7148/api/Products";
 
 const setToken = newToken => {
     token = `bearer ${newToken}`
@@ -11,17 +12,17 @@ const Get = async () => {
     const config = {
         headers: {Authorization: token},
     }
-    let Url = "https://localhost:7148/api/Customers";
-    const request = axios.get(Url, config ) 
+    const request = axios.get(BaseUrl, config ) 
     const response = await request;
     return response.data;
+
 }
 
 const Add = async (object) => {
     const config = {
         headers: {Authorization: token},
     }
-    const request = axios.post(`https://localhost:7148/api/Customers`, object, config)
+    const request = axios.post(BaseUrl, object, config)
     const response = await request;
     return response.data;
 }
@@ -30,16 +31,17 @@ const Remove = async (id) => {
     const config = {
         headers: {Authorization: token},
     }
-    const request = axios.delete(`https://localhost:7148/api/Customers/${id}?forceDelete=false`, config)
+    const request = axios.delete(BaseUrl + "/" + id, config)
     const response = await request;
     return response.data;
 }
 
-const Update = async (customer) => {
+const Update = async (object) => {
     const config = {
         headers: {Authorization: token},
     }
-    const request = axios.put(`https://localhost:7148/api/Customers/${customer.customerId}`, customer, config)
+    const request = axios.put(BaseUrl + "/" + object.productId.toString(), object, config);
+
     const response = await request;
     return response.data;
 }

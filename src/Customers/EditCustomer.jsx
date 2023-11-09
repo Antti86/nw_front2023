@@ -6,17 +6,17 @@ import Button from 'react-bootstrap/Button';
 const EditCustomer = ({setEditing, reload, setreload, setMessage, setIsPositive, setShowMessage, customer}) => {
 
   const [formState, setFormState] = useState({
-    CustomerId: customer.customerId,
-    CompanyName: customer.companyName,
-    ContactName: customer.contactName,
-    ContactTitle: customer.contactTitle,
-    Address: customer.address,
-    City: customer.city,
-    Country: customer.country,
-    Region: customer.region,
-    PostalCode: customer.postalCode,
-    Phone: customer.phone,
-    Fax: customer.fax,
+    Asiakastunnus: customer.customerId,
+    YrityksenNimi: customer.companyName,
+    Yhteyshenkilö: customer.contactName,
+    Titteli: customer.contactTitle,
+    Osoite: customer.address,
+    Kaupunki: customer.city,
+    Maa: customer.country,
+    Alue: customer.region,
+    Postinumero: customer.postalCode,
+    Puhelin: customer.phone,
+    Faksi: customer.fax,
   });
 
   const handleInputChange = (e) => {
@@ -30,17 +30,17 @@ const EditCustomer = ({setEditing, reload, setreload, setMessage, setIsPositive,
   const handleSubmit = (e) => {
     e.preventDefault();
     var newCustomer = {
-      customerId: formState.CustomerId.toUpperCase(),
-      companyName: formState.CompanyName,
-      contactName: formState.ContactName,
-      contactTitle: formState.ContactTitle,
-      country: formState.Country,
-      address: formState.Address,
-      city: formState.City,
-      region: formState.Region,
-      postalCode: formState.PostalCode,
-      phone: formState.Phone,
-      fax: formState.Fax
+      customerId: formState.Asiakastunnus.toUpperCase(),
+      companyName: formState.YrityksenNimi,
+      contactName: formState.Yhteyshenkilö,
+      contactTitle: formState.Titteli,
+      country: formState.Maa,
+      address: formState.Osoite,
+      city: formState.Kaupunki,
+      region: formState.Alue,
+      postalCode: formState.Postinumero,
+      phone: formState.Puhelin,
+      fax: formState.Faksi,
   };
 
   CustomerService.Update(newCustomer)
@@ -74,7 +74,7 @@ const EditCustomer = ({setEditing, reload, setreload, setMessage, setIsPositive,
               type="text"
               id={key}
               name={key}
-              value={value}
+              value={value || ''}
               onChange={handleInputChange}
             />
           </div>

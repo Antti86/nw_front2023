@@ -1,20 +1,20 @@
 
 import React, {useState, useEffect} from "react";
-import CustomerService from '../Services/customer';
-import CustomerForm from "./AddCustomerForm";
+import ProductService from '../Services/product';
+import ProductForm from "./AddProduct";
 import '../Styles/Customer.css';
-import Customer from "./Customer";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Paginations from '../Pagination';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Button from 'react-bootstrap/Button';
+import Product from "./Product";
 
 
-const CustomerList = ({setMessage, setIsPositive, setShowMessage}) => 
+const ProductList = ({setMessage, setIsPositive, setShowMessage}) => 
 {
 
-    const [customers, setcustomers] = useState([]);
+    const [products, setproducts] = useState([]);
 
     const [search, setsearch] = useState("");
 
@@ -27,24 +27,24 @@ const CustomerList = ({setMessage, setIsPositive, setShowMessage}) =>
     const [sortBy, setSortBy] = useState(""); // Tämä tila pitää järjestämisen tilan
 
     // Sivu Filtteröinti
-    const filteredCustomers = customers.filter(c => {
-        const lowerCaseName = c.companyName.toLowerCase();
+    const filteredProducts = products.filter(c => {
+        const lowerCaseName = c.productName.toLowerCase();
         return lowerCaseName.indexOf(search.toLowerCase()) > -1;
     });
 
-    let currentItems = [...filteredCustomers]; // Kloonataan filteredCustomers-joukko
+    let currentItems = [...filteredProducts];
 
     if (sortBy === "asc") {
-        currentItems.sort((a, b) => a.companyName.localeCompare(b.companyName));
+        currentItems.sort((a, b) => a.productName.localeCompare(b.productName)); 
     } else if (sortBy === "desc") {
-        currentItems.sort((a, b) => b.companyName.localeCompare(a.companyName));
+        currentItems.sort((a, b) => b.productName.localeCompare(a.productName));
     }
 
     // Sivu matematiikka
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     currentItems = currentItems.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(filteredCustomers.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
     const handlePageChange = pageNumber => {
         setCurrentPage(pageNumber);
@@ -57,35 +57,35 @@ const CustomerList = ({setMessage, setIsPositive, setShowMessage}) =>
     useEffect(() => 
     {
         let token = localStorage.getItem("token");
-        CustomerService.setToken(token);
-        CustomerService.Get()
-        .then(data => setcustomers(data));
+        ProductService.setToken(token);
+        ProductService.Get()
+        .then(data => setproducts(data));
 
     }, [reload]);
 
 
     return(
         <div className="Customers">
-            <h2>Asiakkaat</h2>
+            <h2>Tuotteet</h2>
 
             {/* Jos ei lisäys moodi päällä */}
             {!adding && 
             <><div className="Actions">
 
-                <input onChange={({ target }) => setsearch(target.value)} type="text" placeholder="Etsi yrityksen nimellä" />
+                <input onChange={({ target }) => setsearch(target.value)} type="text" placeholder="Etsi tuotteen nimellä" />
 
                 <DropdownButton id="dropdown-basic-button" title="Järjestä">
                     <Dropdown.Item onClick={() => handleSort("asc")}>A-Ö</Dropdown.Item>
                     <Dropdown.Item onClick={() => handleSort("desc")}>Ö-A</Dropdown.Item>
                 </DropdownButton>
 
-                <Button variant="secondary" onClick={() => setAdding(true)}>Lisää asiakas</Button>
+                <Button variant="secondary" onClick={() => setAdding(true)}>Lisää tuote</Button>
 
                 </div><ListGroup className="List">
                         {currentItems.map(c => (
-                            <Customer
-                                key={c.customerId}
-                                customer={c}
+                            <Product
+                                key={c.productId}
+                                product={c}
                                 reload={reload}
                                 setreload={setreload}
                                 setMessage={setMessage}
@@ -102,7 +102,7 @@ const CustomerList = ({setMessage, setIsPositive, setShowMessage}) =>
 
             {/* Lisäys moodi */}
             {adding && 
-            <CustomerForm 
+            <ProductForm 
                 setAdding={setAdding}
                 reload={reload}
                 setreload={setreload}
@@ -115,6 +115,6 @@ const CustomerList = ({setMessage, setIsPositive, setShowMessage}) =>
 
 };
 
-export default CustomerList
+export default ProductList
 
 

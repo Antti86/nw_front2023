@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import UserList from './Users/UserList';
 import LoginForm from './Users/LoginFrom';
+import ProductList from './Products/ProductList';
 
 
 
@@ -60,6 +61,7 @@ function App() {
 
         <Routes> 
           <Route path="/Customers" element={<CustomerList setShowMessage={setShowMessage} setMessage={setMessage} setIsPositive={setIsPositive} />} />
+          <Route path="/Products" element={<ProductList setShowMessage={setShowMessage} setMessage={setMessage} setIsPositive={setIsPositive} />} />
           <Route path="/Users" element={<UserList setShowMessage={setShowMessage} setMessage={setMessage} setIsPositive={setIsPositive} />} />
         </Routes>
       </Router>

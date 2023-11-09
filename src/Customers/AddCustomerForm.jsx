@@ -6,7 +6,7 @@ import '../Styles/Customer.css';
 const CustomerForm = ({setAdding, reload, setreload, setMessage, setIsPositive, setShowMessage}) => {
 
   const [formState, setFormState] = useState({
-    Asiakasnumero: '',
+    Asiakastunnus: '',
     YrityksenNimi: '',
     Yhteyshenkilö: '',
     Titteli: '',
@@ -31,7 +31,7 @@ const CustomerForm = ({setAdding, reload, setreload, setMessage, setIsPositive, 
     e.preventDefault();
 
     const requiredFields = [
-      'Asiakasnumero',
+      'Asiakastunnus',
       'YrityksenNimi',
       'Maa',
       'Osoite',
@@ -52,7 +52,7 @@ const CustomerForm = ({setAdding, reload, setreload, setMessage, setIsPositive, 
   }
   else {
     var newCustomer = {
-      customerId: formState.Asiakasnumero.toUpperCase(),
+      customerId: formState.Asiakastunnus.toUpperCase(),
       companyName: formState.YrityksenNimi,
       contactName: formState.Yhteyshenkilö,
       contactTitle: formState.Titteli,
@@ -65,7 +65,7 @@ const CustomerForm = ({setAdding, reload, setreload, setMessage, setIsPositive, 
       fax: formState.Faksi,
   };
 
-  CustomerService.addNew(newCustomer)
+  CustomerService.Add(newCustomer)
   .then(response => {
     setMessage(response)
     setIsPositive(true)
