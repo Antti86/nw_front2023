@@ -1,16 +1,31 @@
 import React, { useState } from 'react';
 import UserService from '../Services/user'
+import Button from 'react-bootstrap/Button';
+import '../Styles/Customer.css';
+import md5 from 'md5'
+
 
 const UserAdd = ({setAdding, reload, setreload, setMessage, setIsPositive, setShowMessage}) => {
 
   const [formState, setFormState] = useState({
-    FirstName: '',
-    LastName: '',
-    UserName: '',
-    Password: '',
-    Phone: '',
-    AccessLevelid: 0,
+    Etunimi: '',
+    Sukunimi: '',
+    Käyttäjänimi: '',
+    Puhelin: '',
+    Admin: '',
+    Salasana: '',
+    SalasananVahvistus: '',
   });
+
+  const [passwordMatching, setPasswordMatching] = useState(false);
+
+  const [passwordLength, setpasswordLength] = useState(false);
+
+  //Select valikkoa varten
+  const options = [
+    { value: 'no', label: 'Ei' },
+    { value: 'yes', label: 'Kyllä' },
+  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -18,13 +33,32 @@ const UserAdd = ({setAdding, reload, setreload, setMessage, setIsPositive, setSh
       ...prevState,
       [name]: value,
     }));
+
+    //Dynaaminen tarkistus salasanan pituudelle ja vahvistukselle
+    //Pitää käyttää value ===, Salasana === SalasananVahvistus sijasta, koska setFormState funktio on ilmeisesti async
+    //Ja päivitys ei ehdi aina seuraaviin tarkistuksiin
+    if (name === 'Salasana' || name === 'SalasananVahvistus') {
+      if (value === formState.Salasana || value === formState.SalasananVahvistus) {
+        setPasswordMatching(true);
+      } else {
+        setPasswordMatching(false);
+      }
+    }
+    if (name === 'Salasana') {
+      if (value.length > 7) {
+        setpasswordLength(true);
+      } else {
+        setpasswordLength(false);
+      }
+    }
+
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (formState.Password.length < 8) {
-        setMessage("Salasanan on oltava vähintään 8 merkkiä pitkä.");
+    if (!passwordLength || !passwordMatching) {
+        setMessage("Salasanan on täytettävä vaatimukset!");
         setIsPositive(false);
         setShowMessage(true);
         setTimeout(() => {
@@ -34,15 +68,16 @@ const UserAdd = ({setAdding, reload, setreload, setMessage, setIsPositive, setSh
       }
 
     var newUser = {
-      firstName: formState.FirstName,
-      lastName: formState.LastName,
-      userName: formState.UserName,
-      password: formState.Password,
-      phone: formState.Phone,
-      accessLevelid: formState.AccessLevelid,
+      firstName: formState.Etunimi,
+      lastName: formState.Sukunimi,
+      userName: formState.Käyttäjänimi,
+      phone: formState.Puhelin,
+      //Admin === 1 ja peruskäyttäjä === 0
+      accessLevelid: formState.Admin === "yes" ? 1 : 0,
+      password: md5(formState.Salasana)
   };
 
-  UserService.addUser(newUser)
+  UserService.Add(newUser)
   .then(response => {
     setMessage(response)
     setIsPositive(true)
@@ -63,26 +98,57 @@ const UserAdd = ({setAdding, reload, setreload, setMessage, setIsPositive, setSh
   setAdding(false)
 
 }
-  return (
+return (
+  <div className='CustomersForm'>
     <form id="Form" onSubmit={handleSubmit}>
       {Object.entries(formState).map(([key, value]) => (
         <div key={key}>
-          <label htmlFor={key}>{key}:</label>
-          <input
-              type={
-                key === 'Password' ? 'password' :
-                key === 'AccessLevelid' ? 'number' :
-                'text'}
-            id={key}
-            name={key}
-            value={value}
-            onChange={handleInputChange}
-          />
+          {key === "Admin" ? (
+            <div>
+              <label htmlFor={key}>{key}</label>
+              <select
+                id={key}
+                name={key}
+                value={value}
+                onChange={handleInputChange}
+              >
+                {options.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : (
+            <div>
+              <label htmlFor={key}>
+                {key === "SalasananVahvistus" ? "Vahvista Salasana" : key}:
+              </label>
+              <input
+                type={
+                  key === 'Salasana' ? 'password' :
+                  key === 'SalasananVahvistus' ? 'password' :
+                  'text'}
+                id={key}
+                name={key}
+                value={value}
+                onChange={handleInputChange}
+              />
+            </div>
+          )}
         </div>
       ))}
-      <button type="submit">Lähetä</button>
+      <Button variant='success' type="submit">Tallenna</Button>
+      <Button variant='danger' onClick={() => setAdding(false)}>Peruuta</Button>
+      <div className='Varoitusteksti'>
+       {!passwordMatching && (<label>Vahvista salasana</label>)}
+      </div>
+      <div className='Varoitusteksti'>
+      {!passwordLength && (<label>Salasanan on oltava vähintään 8 merkkiä</label>)}
+      </div>
     </form>
-  );
+  </div>
+);
 
 }
 export default UserAdd

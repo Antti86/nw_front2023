@@ -58,10 +58,30 @@
 .CustomersForm Button {
     width: 10%;
     justify-content: start;
+    margin: 8px;
+
+}
+
+.CustomersForm Select {
+    width: 300px;
+    justify-content: start;
     margin: 5px;
 
+}
+
+.CustomersForm Form {
+
+    justify-content: start;
+    margin: 5px;
 }
 
 .CustomersEdit {
     margin: 5 px;
 }
+
+.Varoitusteksti label{
+    color: red;
+    width: 350px;
+}
+
+

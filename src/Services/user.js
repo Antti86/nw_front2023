@@ -1,30 +1,46 @@
 import axios from 'axios';
 
 let BaseUrl = "https://localhost:7148/api/users";
-const GetUsers = async () => {
+let token = null;
 
+const setToken = newToken => {
+    token = `bearer ${newToken}`
+}
 
-    const request = axios.get(BaseUrl)
+const Get = async () => {
+    const config = {
+        headers: {Authorization: token},
+    }
+
+    const request = axios.get(BaseUrl, config)
     const response = await request;
     return response.data;
 
 }
 
-const addUser = async (object) => {
-    
-    const request = axios.post(BaseUrl, object)
+const Add = async (object) => {
+    const config = {
+        headers: {Authorization: token},
+    }
+    const request = axios.post(BaseUrl, object, config)
     const response = await request;
     return response.data;
 }
 
-const RemoveUser = async (id) => {
-    const request = axios.delete(BaseUrl + "/" + id)
+const Remove = async (id) => {
+    const config = {
+        headers: {Authorization: token},
+    }
+    const request = axios.delete(BaseUrl + "/" + id, config)
     const response = await request;
     return response.data;
 }
 
-const UpdateUser = async (user) => {
-    const request = axios.put(BaseUrl + "/" + user.userId, user)
+const Update = async (user) => {
+    const config = {
+        headers: {Authorization: token},
+    }
+    const request = axios.put(BaseUrl + "/" + user.userId, user, config)
     const response = await request;
     return response.data;
 }
@@ -35,4 +51,4 @@ const Login = async (object) => {
     return response;
 }
 
-export default {GetUsers, addUser, RemoveUser, UpdateUser, Login}
+export default {Get, Add, Remove, Update, Login, setToken}
