@@ -3,6 +3,8 @@ import Pagination from 'react-bootstrap/Pagination';
 
 // https://react-bootstrap.netlify.app/docs/components/pagination
 
+//Komponentti hoitaa sivutus rutiinin
+
 const Paginations = ({ currentPage, totalPages, onPageChange }) => {
   const pageNumbers = [];
 

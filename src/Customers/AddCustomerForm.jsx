@@ -5,6 +5,7 @@ import '../Styles/Lists&Forms.css';
 
 const CustomerForm = ({setAdding, reload, setreload, setMessage, setIsPositive, setShowMessage}) => {
 
+  // Kaikki formissa olevat statit
   const [formState, setFormState] = useState({
     Asiakastunnus: '',
     YrityksenNimi: '',

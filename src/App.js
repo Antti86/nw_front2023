@@ -28,6 +28,7 @@ function App() {
     }
   }, [])
 
+  // Ulos kirjautuminen
   const Logout = () => {
     localStorage.clear();
     setLoggedIn("");
