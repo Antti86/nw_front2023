@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import UserService from '../Services/user'
 import Button from 'react-bootstrap/Button';
-import '../Styles/Customer.css';
+import '../Styles/Lists&Forms.css';
 
 
 const UserEdit = ({setEditing, reload, setreload, setMessage, setIsPositive, setShowMessage, user}) => {
@@ -100,7 +100,7 @@ const UserEdit = ({setEditing, reload, setreload, setMessage, setIsPositive, set
 
 }
 return (
-  <div className='CustomersForm'>
+  <div className='Forms'>
     <h3>Muokkaa käyttäjää</h3>
     <form id="Form" onSubmit={handleSubmit}>
       {Object.entries(formState).map(([key, value]) => (

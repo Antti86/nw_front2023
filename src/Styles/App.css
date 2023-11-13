@@ -10,28 +10,11 @@ button {
   min-width: 40px;
 }
 
-.post, .customerDetails {
-  max-width: 70%;
-  margin-left: 15%;
-  background-color: orange;
-  border-color: orangered;
-  border-radius: 10px;
-  border-width: 2px;
-  border-style: solid;
-  margin-top: 1%;
-}
-
-.customerDetails Button {
-  margin: 10px;
-}
-
-/* Lisää tilaa <th> ja <td> -elementtien ylä- ja alapuolelle */
 th, td {
   padding-top: 8px;
   padding-bottom: 8px;
 }
 
-/* Voit myös lisätä tilaa sivuille */
 th, td {
   padding-left: 25px;
   padding-right: 25px;

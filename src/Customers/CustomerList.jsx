@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from "react";
 import CustomerService from '../Services/customer';
 import CustomerForm from "./AddCustomerForm";
-import '../Styles/Customer.css';
+import '../Styles/Lists&Forms.css';
 import Customer from "./Customer";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Paginations from '../Pagination';
@@ -65,7 +65,7 @@ const CustomerList = ({setMessage, setIsPositive, setShowMessage}) =>
 
 
     return(
-        <div className="Customers">
+        <div className="List">
             <h2>Asiakkaat</h2>
 
             {/* Jos ei lisäys moodi päällä */}

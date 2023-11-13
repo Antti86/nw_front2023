@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CustomerService from '../Services/customer'
-import '../Styles/App.css';
+import '../Styles/Lists&Forms.css';
 import Button from 'react-bootstrap/Button';
 
 const EditCustomer = ({setEditing, reload, setreload, setMessage, setIsPositive, setShowMessage, customer}) => {
@@ -65,7 +65,7 @@ const EditCustomer = ({setEditing, reload, setreload, setMessage, setIsPositive,
 
 }
   return (
-    <div className='CustomersForm'>
+    <div className='Forms'>
       <form id="Form" onSubmit={handleSubmit}>
         {Object.entries(formState).map(([key, value]) => (
           <div key={key}>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ProductService from '../Services/product'
-import '../Styles/App.css';
+import '../Styles/Lists&Forms.css';
 import Button from 'react-bootstrap/Button';
 
 const EditProduct = ({setEditing, reload, setreload, setMessage, setIsPositive, setShowMessage, product}) => {
@@ -65,9 +65,9 @@ const EditProduct = ({setEditing, reload, setreload, setMessage, setIsPositive, 
 
 }
 return (
-    <div className='CustomersForm'>
+    <div className='Forms'>
       <h3>Lisää uusi asiakas</h3>
-      <form className='CustomersForm' id="Form" onSubmit={handleSubmit}>
+      <form id="Form" onSubmit={handleSubmit}>
         {Object.entries(formState).map(([key, value]) => (
           <div key={key}>
             <label htmlFor={key}>{key}:</label>

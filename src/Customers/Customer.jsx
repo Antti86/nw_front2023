@@ -2,7 +2,7 @@
 import React, {useState} from "react"
 import CustomerService from '../Services/customer'
 import ListGroup from 'react-bootstrap/ListGroup';
-import '../Styles/Customer.css';
+import '../Styles/Lists&Forms.css';
 import EditCustomer from "./EditCustomer";
 import Button from 'react-bootstrap/Button';
 
@@ -32,7 +32,7 @@ const Customer = ({customer, reload, setreload, setMessage, setIsPositive, setSh
                 {customer.country}
                 </ListGroup.Item>
             {showdetails && 
-            <div className="customerDetails">
+            <div className="Details">
 
                 {editing && <EditCustomer setEditing={setEditing} reload={reload} setreload={setreload} setMessage={setMessage}
                  setIsPositive={setIsPositive} setShowMessage={setShowMessage} customer={customer}></EditCustomer>}

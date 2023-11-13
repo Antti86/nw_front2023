@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from "react";
 import ProductService from '../Services/product';
 import ProductForm from "./AddProduct";
-import '../Styles/Customer.css';
+import '../Styles/Lists&Forms.css';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Paginations from '../Pagination';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -65,7 +65,7 @@ const ProductList = ({setMessage, setIsPositive, setShowMessage}) =>
 
 
     return(
-        <div className="Customers">
+        <div className="List">
             <h2>Tuotteet</h2>
 
             {/* Jos ei lisäys moodi päällä */}
