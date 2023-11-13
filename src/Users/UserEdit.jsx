@@ -4,14 +4,15 @@ import Button from 'react-bootstrap/Button';
 import '../Styles/Customer.css';
 
 
-const UserAdd = ({setAdding, reload, setreload, setMessage, setIsPositive, setShowMessage}) => {
+const UserEdit = ({setEditing, reload, setreload, setMessage, setIsPositive, setShowMessage, user}) => {
 
+  const [userId] = useState(user.userId);
   const [formState, setFormState] = useState({
-    Etunimi: '',
-    Sukunimi: '',
-    Käyttäjänimi: '',
-    Puhelin: '',
-    Admin: '',
+    Etunimi: user.firstName,
+    Sukunimi: user.lastName,
+    Käyttäjänimi: user.userName,
+    Puhelin: user.phone,
+    Admin: user.accessLevelid === 1 ? "yes" : "no",
     Salasana: '',
     SalasananVahvistus: '',
   });
@@ -67,6 +68,7 @@ const UserAdd = ({setAdding, reload, setreload, setMessage, setIsPositive, setSh
       }
 
     var newUser = {
+      userId: userId,
       firstName: formState.Etunimi,
       lastName: formState.Sukunimi,
       userName: formState.Käyttäjänimi,
@@ -76,7 +78,7 @@ const UserAdd = ({setAdding, reload, setreload, setMessage, setIsPositive, setSh
       password: formState.Salasana
   };
 
-  UserService.Add(newUser)
+  UserService.Update(newUser)
   .then(response => {
     setMessage(response)
     setIsPositive(true)
@@ -94,12 +96,12 @@ const UserAdd = ({setAdding, reload, setreload, setMessage, setIsPositive, setSh
   }, 4000);
   })
   .then(() => setreload(!reload))
-  setAdding(false)
+  setEditing(false)
 
 }
 return (
   <div className='CustomersForm'>
-    <h3>Lisää käyttäjä</h3>
+    <h3>Muokkaa käyttäjää</h3>
     <form id="Form" onSubmit={handleSubmit}>
       {Object.entries(formState).map(([key, value]) => (
         <div key={key}>
@@ -139,7 +141,7 @@ return (
         </div>
       ))}
       <Button variant='success' type="submit">Tallenna</Button>
-      <Button variant='danger' onClick={() => setAdding(false)}>Peruuta</Button>
+      <Button variant='danger' onClick={() => setEditing(false)}>Peruuta</Button>
       <div className='Varoitusteksti'>
        {!passwordMatching && (<label>Vahvista salasana</label>)}
       </div>
@@ -151,4 +153,4 @@ return (
 );
 
 }
-export default UserAdd
+export default UserEdit

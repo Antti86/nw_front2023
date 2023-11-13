@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table';
 import '../Styles/Customer.css';
 import UserAdd from "./UserAdd";
 import Button from 'react-bootstrap/Button';
+import UserEdit from "./UserEdit";
 
 
 
@@ -16,6 +17,8 @@ const UserList = ({setMessage, setIsPositive, setShowMessage}) =>
     const [adding, setAdding] = useState(false);
 
     const [editing, setEditing] = useState(false);
+    const [modUser, setmodUser] = useState({});
+
 
     const [reload, setreload] = useState(false);
 
@@ -51,7 +54,7 @@ const UserList = ({setMessage, setIsPositive, setShowMessage}) =>
             <h2>Käyttäjät</h2>
 
 
-            {!adding && <><Button className="CustomersForm" variant="secondary" onClick={() => setAdding(true)}>Uusi käyttäjä</Button><Table hover>
+            {!adding && !editing && <><Button className="CustomersForm" variant="secondary" onClick={() => setAdding(true)}>Uusi käyttäjä</Button><Table hover>
                 <thead>
                     <tr>
                         <th>Nimi</th>
@@ -68,7 +71,7 @@ const UserList = ({setMessage, setIsPositive, setShowMessage}) =>
                         <td>{u.phone}</td>
                         <td>{u.userName}</td>
                         {u.accessLevelid < 1 ? <td>Ei</td> : <td>Kyllä</td>}
-                        <td><Button onClick={() => setEditing(true)}>Muokkaa</Button></td>
+                        <td><Button onClick={() => {setEditing(true); setmodUser(u) }}>Muokkaa</Button></td>
                         <td><Button variant="danger" onClick={() => remove(u)}>Poista</Button></td>
                     </tr>)}
                 </tbody>
@@ -76,6 +79,10 @@ const UserList = ({setMessage, setIsPositive, setShowMessage}) =>
 
             {adding && <UserAdd setAdding={setAdding} reload={reload} setreload={setreload}
              setMessage={setMessage} setIsPositive={setIsPositive} setShowMessage={setShowMessage}/>}
+
+             {!adding && editing && <UserEdit setEditing={setEditing} reload={reload} setreload={setreload}
+             setMessage={setMessage} setIsPositive={setIsPositive} setShowMessage={setShowMessage} user={modUser}
+             ></UserEdit>}
 
         </div>
     )

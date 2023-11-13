@@ -50,7 +50,9 @@ function App() {
             <Nav.Link as={Link} to="/Customers">Asiakkaat</Nav.Link>
             <Nav.Link as={Link} to="/Products">Tuotteet</Nav.Link>
             <Nav.Link as={Link} to="/Employees">Työntekijät</Nav.Link>
-            <Nav.Link as={Link} to="/Users">Käyttäjät</Nav.Link>
+            {localStorage.getItem("accesslevelId") > 0 &&
+            <Nav.Link as={Link} to="/Users">Käyttäjät</Nav.Link>}
+            
           </Nav>
           <Nav>
             <Nav.Link onClick={() => Logout()} >Kirjaudu ulos ({localStorage.getItem("username")})</Nav.Link>
@@ -62,7 +64,9 @@ function App() {
         <Routes> 
           <Route path="/Customers" element={<CustomerList setShowMessage={setShowMessage} setMessage={setMessage} setIsPositive={setIsPositive} />} />
           <Route path="/Products" element={<ProductList setShowMessage={setShowMessage} setMessage={setMessage} setIsPositive={setIsPositive} />} />
-          <Route path="/Users" element={<UserList setShowMessage={setShowMessage} setMessage={setMessage} setIsPositive={setIsPositive} />} />
+          {localStorage.getItem("accesslevelId") > 0 &&
+          <Route path="/Users" element={<UserList setShowMessage={setShowMessage} setMessage={setMessage} setIsPositive={setIsPositive} />} />}
+          
         </Routes>
       </Router>
       }

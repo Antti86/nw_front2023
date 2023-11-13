@@ -49,8 +49,6 @@ const LoginForm = ({setLoggedIn}) => {
   }, 4000);
   })
 
-  
-
 }
 return (
   <div>
@@ -60,7 +58,6 @@ return (
           <Form.Group key={key}>
             <Form.Label htmlFor={key}>{key}:</Form.Label>
             <Form.Control
-
               type={
                 key === 'Salasana' ? 'password' :
                 key === 'AccessLevelid' ? 'number' :
@@ -78,15 +75,11 @@ return (
       <img src={yetAnotherLogin} alt='No login meme' />
     </div>
     <div className='LoginError'>
-    {/* <img src={failedLogin} alt='Login error meme' /> */}
       {showLoginError && (
         <img src={failedLogin} alt='Login error meme' />
       )}
     </div>
-
-
   </div>
-
 );
 }
 export default LoginForm
