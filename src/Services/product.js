@@ -1,7 +1,10 @@
 import axios from 'axios';
-
+let port = "8000"
 let token = null
-let BaseUrl = "https://localhost:7148/api/Products";
+// let BaseUrl = `/api/Products`
+// let BaseUrl = `http://localhost:${port}/api/Products`
+// let BaseUrl = `http://backend:${port}/api/Products`
+let BaseUrl = `https://northwindrestapi.azurewebsites.net/api/Products`
 
 const setToken = newToken => {
     token = `bearer ${newToken}`

@@ -1,6 +1,9 @@
 import axios from 'axios';
+let port = "8000"
+let BaseUrl = `https://northwindrestapi.azurewebsites.net/api/users`
+// let BaseUrl = `http://localhost:${port}/api/users`
+// let BaseUrl = `http://backend:${port}/api/users`; // käytä oikeaa Docker-verkon nimeä tai palvelun nimeä
 
-let BaseUrl = "https://localhost:7148/api/users";
 let token = null;
 
 const setToken = newToken => {
@@ -46,7 +49,9 @@ const Update = async (user) => {
 }
 
 const Login = async (object) => {
-    const request = axios.post("https://localhost:7148/api/authentication", object)
+    // const request = axios.post(`http://backend:${port}/api/authentication`, object)
+    // const request = axios.post(`http://localhost:${port}/api/authentication`, object)
+    const request = axios.post(`https://northwindrestapi.azurewebsites.net/api/authentication`, object)
     const response = await request;
     return response;
 }
